@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FadeIn } from "@/components/ui/Animations";
 import { CONTACT } from "@/lib/constants";
-import { Phone, Mail, MapPin, Send, CheckCircle2 } from "lucide-react";
+import { Phone, Mail, MapPin, Send, CheckCircle2, Map } from "lucide-react";
 
 export default function Contact() {
   const [form, setForm] = useState({ nome: "", email: "", telefone: "", empresa: "", mensagem: "" });
@@ -51,6 +51,7 @@ export default function Contact() {
                 { icon: Phone, text: CONTACT.phone },
                 { icon: Mail, text: CONTACT.email },
                 { icon: MapPin, text: CONTACT.address },
+                { icon: Map, text: CONTACT.serviceArea },
               ].map((item) => (
                 <div key={item.text} className="flex items-center gap-3 text-sm text-foreground">
                   <item.icon size={18} className="text-trust" />

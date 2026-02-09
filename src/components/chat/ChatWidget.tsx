@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { MessageSquare, X, Send, Bot, Minimize2, Loader2, Sparkles, Plus, Link as LinkIcon } from "lucide-react";
+import { MessageSquare, X, Send, Bot, Minimize2, Maximize2, Loader2, Sparkles, Plus, Link as LinkIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const WhatsAppIcon = ({ className }: { className?: string }) => (
@@ -21,6 +21,7 @@ const WhatsAppIcon = ({ className }: { className?: string }) => (
 
 export default function ChatWidget() {
   const [isChatOpen, setIsChatOpen] = useState(false);
+  const [isMinimized, setIsMinimized] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   
@@ -83,8 +84,14 @@ export default function ChatWidget() {
     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-center gap-2 font-sans">
       {/* Chat Window */}
       {isChatOpen && (
-        <Card className="w-[300px] sm:w-[350px] md:w-[380px] h-[500px] shadow-2xl border-trust/20 flex flex-col animate-in slide-in-from-bottom-10 fade-in duration-300 overflow-hidden mb-20 origin-bottom-right absolute bottom-0 right-0">
-          <CardHeader className="bg-navy text-primary-foreground p-4 flex flex-row items-center justify-between space-y-0 shrink-0">
+        <Card className={cn(
+          "w-[300px] sm:w-[350px] md:w-[380px] shadow-2xl border-trust/20 flex flex-col animate-in slide-in-from-bottom-10 fade-in duration-300 overflow-hidden mb-0 origin-bottom-right absolute bottom-0 right-20",
+          isMinimized ? "h-auto" : "h-[450px]"
+        )}>
+          <CardHeader 
+            className="bg-navy text-primary-foreground p-4 flex flex-row items-center justify-between space-y-0 shrink-0 cursor-pointer"
+            onClick={() => isMinimized && setIsMinimized(false)}
+          >
             <div className="flex items-center gap-3">
               <div className="p-2 bg-white/10 rounded-full">
                 <Bot size={20} className="text-trust" />
@@ -97,80 +104,87 @@ export default function ChatWidget() {
               </div>
             </div>
             <div className="flex gap-1">
-              <Button variant="ghost" size="icon" className="h-8 w-8 text-white hover:bg-white/20 hover:text-white" onClick={() => setIsChatOpen(false)}>
-                <Minimize2 size={18} />
+              <Button variant="ghost" size="icon" className="h-8 w-8 text-white hover:bg-white/20 hover:text-white" onClick={(e) => { e.stopPropagation(); setIsMinimized(!isMinimized); }}>
+                {isMinimized ? <Maximize2 size={18} /> : <Minimize2 size={18} />}
+              </Button>
+              <Button variant="ghost" size="icon" className="h-8 w-8 text-white hover:bg-white/20 hover:text-white" onClick={(e) => { e.stopPropagation(); setIsChatOpen(false); }}>
+                <X size={18} />
               </Button>
             </div>
           </CardHeader>
           
-          <CardContent className="flex-1 p-0 overflow-hidden bg-muted/30 relative">
-            <ScrollArea className="h-full p-4">
-              <div className="flex flex-col gap-4 min-h-full pb-2">
-                {messages.length === 0 && (
-                  <div className="text-center text-sm text-muted-foreground mt-8 p-6 bg-background/50 rounded-xl border border-border/50 mx-2 shadow-sm">
-                    <div className="w-12 h-12 bg-trust/10 rounded-full flex items-center justify-center mx-auto mb-3">
-                      <Bot size={24} className="text-trust" />
-                    </div>
-                    <p className="font-medium text-foreground mb-1">Olá! Bem-vindo à Roosevelt.</p>
-                    <p className="text-xs leading-relaxed">
-                      Sou sua assistente virtual. Posso ajudar com serviços contábeis, abertura de empresas e dúvidas sobre nossos planos. Como posso ajudar hoje?
-                    </p>
-                  </div>
-                )}
-                
-                {messages.map((m: any) => (
-                  <div
-                    key={m.id}
-                    className={cn(
-                      "flex w-max max-w-[85%] flex-col gap-1 rounded-2xl px-4 py-2.5 text-sm shadow-sm",
-                      m.role === 'user' 
-                        ? "ml-auto bg-trust text-trust-foreground rounded-br-none" 
-                        : "bg-background border border-border text-foreground rounded-bl-none"
+          {!isMinimized && (
+            <>
+              <CardContent className="flex-1 p-0 overflow-hidden bg-muted/30 relative">
+                <ScrollArea className="h-full p-4">
+                  <div className="flex flex-col gap-4 min-h-full pb-2">
+                    {messages.length === 0 && (
+                      <div className="text-center text-sm text-muted-foreground mt-8 p-6 bg-background/50 rounded-xl border border-border/50 mx-2 shadow-sm">
+                        <div className="w-12 h-12 bg-trust/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                          <Bot size={24} className="text-trust" />
+                        </div>
+                        <p className="font-medium text-foreground mb-1">Olá! Bem-vindo à Roosevelt.</p>
+                        <p className="text-xs leading-relaxed">
+                          Sou sua assistente virtual. Posso ajudar com serviços contábeis, abertura de empresas e dúvidas sobre nossos planos. Como posso ajudar hoje?
+                        </p>
+                      </div>
                     )}
+                    
+                    {messages.map((m: any) => (
+                      <div
+                        key={m.id}
+                        className={cn(
+                          "flex w-max max-w-[85%] flex-col gap-1 rounded-2xl px-4 py-2.5 text-sm shadow-sm",
+                          m.role === 'user' 
+                            ? "ml-auto bg-trust text-trust-foreground rounded-br-none" 
+                            : "bg-background border border-border text-foreground rounded-bl-none"
+                        )}
+                      >
+                        {m.content}
+                      </div>
+                    ))}
+                    
+                    {isLoading && messages[messages.length - 1]?.role === 'user' && (
+                       <div className="flex w-max max-w-[85%] flex-col gap-2 rounded-2xl rounded-bl-none px-4 py-3 text-sm bg-background border border-border text-foreground shadow-sm">
+                        <div className="flex gap-1 items-center h-5">
+                          <span className="w-1.5 h-1.5 bg-foreground/40 rounded-full animate-bounce [animation-delay:-0.3s]"></span>
+                          <span className="w-1.5 h-1.5 bg-foreground/40 rounded-full animate-bounce [animation-delay:-0.15s]"></span>
+                          <span className="w-1.5 h-1.5 bg-foreground/40 rounded-full animate-bounce"></span>
+                        </div>
+                      </div>
+                    )}
+                    
+                    {error && (
+                      <div className="text-xs text-destructive text-center mt-2 p-3 bg-destructive/10 rounded-lg border border-destructive/20 mx-4">
+                        Estamos offline no momento. Por favor, tente pelo WhatsApp.
+                      </div>
+                    )}
+
+                    <div ref={messagesEndRef} />
+                  </div>
+                </ScrollArea>
+              </CardContent>
+
+              <CardFooter className="p-3 bg-background border-t border-border shrink-0">
+                <form onSubmit={handleSubmit} className="flex w-full items-center gap-2">
+                  <Input 
+                    value={input} 
+                    onChange={handleInputChange} 
+                    placeholder="Digite sua dúvida..." 
+                    className="flex-1 focus-visible:ring-trust bg-muted/50 border-muted-foreground/20"
+                  />
+                  <Button 
+                    type="submit" 
+                    size="icon" 
+                    disabled={isLoading || !input.trim()} 
+                    className="bg-trust hover:bg-electric text-trust-foreground shadow-sm shrink-0 transition-all"
                   >
-                    {m.content}
-                  </div>
-                ))}
-                
-                {isLoading && messages[messages.length - 1]?.role === 'user' && (
-                   <div className="flex w-max max-w-[85%] flex-col gap-2 rounded-2xl rounded-bl-none px-4 py-3 text-sm bg-background border border-border text-foreground shadow-sm">
-                    <div className="flex gap-1 items-center h-5">
-                      <span className="w-1.5 h-1.5 bg-foreground/40 rounded-full animate-bounce [animation-delay:-0.3s]"></span>
-                      <span className="w-1.5 h-1.5 bg-foreground/40 rounded-full animate-bounce [animation-delay:-0.15s]"></span>
-                      <span className="w-1.5 h-1.5 bg-foreground/40 rounded-full animate-bounce"></span>
-                    </div>
-                  </div>
-                )}
-                
-                {error && (
-                  <div className="text-xs text-destructive text-center mt-2 p-3 bg-destructive/10 rounded-lg border border-destructive/20 mx-4">
-                    Estamos offline no momento. Por favor, tente pelo WhatsApp.
-                  </div>
-                )}
-
-                <div ref={messagesEndRef} />
-              </div>
-            </ScrollArea>
-          </CardContent>
-
-          <CardFooter className="p-3 bg-background border-t border-border shrink-0">
-            <form onSubmit={handleSubmit} className="flex w-full items-center gap-2">
-              <Input 
-                value={input} 
-                onChange={handleInputChange} 
-                placeholder="Digite sua dúvida..." 
-                className="flex-1 focus-visible:ring-trust bg-muted/50 border-muted-foreground/20"
-              />
-              <Button 
-                type="submit" 
-                size="icon" 
-                disabled={isLoading || !input.trim()} 
-                className="bg-trust hover:bg-electric text-trust-foreground shadow-sm shrink-0 transition-all"
-              >
-                {isLoading ? <Loader2 size={18} className="animate-spin" /> : <Send size={18} />}
-              </Button>
-            </form>
-          </CardFooter>
+                    {isLoading ? <Loader2 size={18} className="animate-spin" /> : <Send size={18} />}
+                  </Button>
+                </form>
+              </CardFooter>
+            </>
+          )}
         </Card>
       )}
 

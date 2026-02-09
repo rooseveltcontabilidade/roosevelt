@@ -1,5 +1,5 @@
 import { openai } from '@ai-sdk/openai';
-import { streamText, convertToCoreMessages } from 'ai';
+import { streamText, convertToModelMessages } from 'ai';
 
 export const config = {
   runtime: 'edge',
@@ -48,12 +48,12 @@ export default async function handler(req: Request) {
     const result = await streamText({
       model: openai('gpt-4o-mini'),
       system: SYSTEM_PROMPT,
-      messages: convertToCoreMessages(messages),
+      messages: await convertToModelMessages(messages),
       temperature: 0.3,
-      maxTokens: 500,
+      maxOutputTokens: 500,
     });
 
-    return result.toDataStreamResponse();
+    return result.toTextStreamResponse();
 
   } catch (error) {
     console.error('Error in chat API:', error);

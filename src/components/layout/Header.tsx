@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import ClientAreaDropdown from "../navbar/ClientAreaDropdown";
 
 const NAV_ITEMS = [
   { label: "Início", href: "#inicio" },
@@ -58,6 +59,7 @@ export default function Header() {
               {item.label}
             </a>
           ))}
+          <ClientAreaDropdown />
           <a
             href="#contato"
             className="bg-trust text-trust-foreground px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-electric transition-colors duration-200"
@@ -96,6 +98,9 @@ export default function Header() {
                   {item.label}
                 </a>
               ))}
+              <div className="flex justify-start px-0">
+                <ClientAreaDropdown />
+              </div>
               <a
                 href="#contato"
                 onClick={() => setMenuOpen(false)}
