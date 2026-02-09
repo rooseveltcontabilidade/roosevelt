@@ -11,10 +11,10 @@ Crie um arquivo `.env.local` na raiz do projeto com as chaves de API:
 # OpenAI (Padrão)
 OPENAI_API_KEY=sk-proj-...
 
-# Grok (Opcional - xAI)
-# Para ativar o Grok, descomente as linhas abaixo:
-# USE_GROK=true
-# XAI_API_KEY=xai-...
+# Groq (Opcional - Llama 3 via Groq)
+# Para ativar o Groq, descomente as linhas abaixo:
+# USE_GROQ=true
+# GROQ_API_KEY=gsk_...
 ```
 
 ### Arquivos Importantes

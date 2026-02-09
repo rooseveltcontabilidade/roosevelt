@@ -118,16 +118,16 @@ export const AI_CONFIG = {
 
 // --- FACTORY DE PROVEDORES ---
 export function getAIProvider() {
-  // Se quiser usar Grok (xAI), defina USE_GROK=true e XAI_API_KEY no .env
-  const useGrok = process.env.USE_GROK === 'true';
+  // Se quiser usar Groq (Llama 3), defina USE_GROQ=true e GROQ_API_KEY no .env
+  const useGroq = process.env.USE_GROQ === 'true';
   
-  if (useGrok) {
-    // Configuração compatível com OpenAI para xAI
-    const grok = createOpenAI({
-      apiKey: process.env.XAI_API_KEY,
-      baseURL: 'https://api.x.ai/v1',
+  if (useGroq) {
+    // Configuração compatível com OpenAI para Groq
+    const groq = createOpenAI({
+      apiKey: process.env.GROQ_API_KEY,
+      baseURL: 'https://api.groq.com/openai/v1',
     });
-    return grok('grok-beta');
+    return groq('llama-3.3-70b-versatile');
   }
 
   // Padrão: OpenAI
