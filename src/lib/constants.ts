@@ -5,8 +5,8 @@ export function getYearsOfExperience(): number {
 }
 
 export const CONTACT = {
-  phone: "(11) 3333-4444",
-  whatsapp: "5511933334444",
+  phone: "(51) 3264-6306",
+  whatsapp: "555132646306",
   email: "contato@rooseveltcontabilidade.com.br",
-  address: "Av. Paulista, 1000 — Bela Vista, São Paulo — SP",
+  address: "R. Olinda, 300 — São Geraldo, Porto Alegre — RS, 90240-5707",
 };

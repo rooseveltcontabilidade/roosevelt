@@ -31,12 +31,17 @@ export default function Header() {
     >
       <div className="container-editorial flex items-center justify-between">
         {/* Logo */}
-        <a href="#inicio" className="flex items-center gap-3 group">
-          <div className={`font-display font-extrabold tracking-tight transition-all duration-500 ${
-            scrolled ? "text-xl" : "text-2xl md:text-3xl"
+        <a href="#inicio" className="flex items-center gap-4 group">
+          <img 
+            src="/Logo_navbar.png" 
+            alt="Roosevelt Logo" 
+            className={`w-auto transition-all duration-500 ${scrolled ? "h-10" : "h-12 md:h-16"}`} 
+          />
+          <div className={`font-display font-extrabold tracking-tight transition-all duration-500 flex flex-col ${
+            scrolled ? "text-lg" : "text-xl md:text-2xl"
           } text-primary-foreground`}>
-            <span className="text-trust">Roosevelt</span>
-            <span className="block text-xs md:text-sm font-medium tracking-[0.2em] uppercase opacity-80">
+            <span className="text-trust leading-none">Roosevelt</span>
+            <span className="block text-[0.6em] font-medium tracking-[0.2em] uppercase opacity-80 leading-tight">
               Contabilidade
             </span>
           </div>

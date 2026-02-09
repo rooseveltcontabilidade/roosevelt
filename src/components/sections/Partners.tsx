@@ -1,35 +1,7 @@
-import { FadeIn } from "./Animations";
+import { FadeIn } from "@/components/ui/Animations";
 import { Briefcase, Award, Shield } from "lucide-react";
 
-const PARTNERS = [
-  {
-    name: "Carlos Eduardo Roosevelt",
-    role: "Sócio-Diretor",
-    credentials: [
-      "Mais de 35 anos de atuação em consultoria contábil",
-      "Especialista em planejamento tributário estratégico",
-      "Responsável por decisões de alto impacto para clientes de grande porte",
-    ],
-  },
-  {
-    name: "Ana Carolina Mendes",
-    role: "Sócia-Diretora",
-    credentials: [
-      "Referência em gestão de departamento pessoal e trabalhista",
-      "20+ anos de experiência em compliance empresarial",
-      "Atendimento direto a empresas em processos societários complexos",
-    ],
-  },
-  {
-    name: "Roberto Augusto Campos",
-    role: "Sócio-Diretor",
-    credentials: [
-      "Liderança da área fiscal e de obrigações acessórias",
-      "Especialista em regimes tributários (Lucro Real, Presumido, Simples)",
-      "Condutor da transformação digital do escritório",
-    ],
-  },
-];
+import PARTNERS from "@/content/team.json";
 
 export default function Partners() {
   return (
@@ -40,7 +12,7 @@ export default function Partners() {
             Liderança
           </span>
           <h2 className="font-display font-extrabold text-3xl md:text-4xl lg:text-5xl text-foreground mt-3 max-w-2xl leading-tight">
-            Sócios em destaque
+            Sócios
           </h2>
           <p className="text-muted-foreground mt-4 text-lg max-w-xl">
             Atendimento direto e responsável em decisões críticas.

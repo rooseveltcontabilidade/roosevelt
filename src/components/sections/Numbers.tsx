@@ -1,5 +1,5 @@
 import { getYearsOfExperience } from "@/lib/constants";
-import { AnimatedCounter, FadeIn } from "./Animations";
+import { AnimatedCounter, FadeIn } from "@/components/ui/Animations";
 
 const STATS = [
   { value: getYearsOfExperience(), suffix: "", label: "anos de experiência", dynamic: true },

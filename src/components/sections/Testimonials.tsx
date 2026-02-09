@@ -1,67 +1,10 @@
 import { useState } from "react";
-import { FadeIn } from "./Animations";
+import { FadeIn } from "@/components/ui/Animations";
 import { Star, Quote } from "lucide-react";
 
-const CATEGORIES = ["Todos", "Atendimento", "Agilidade", "Segurança", "Consultoria"];
+import { TESTIMONIALS } from "@/content/testimonials";
 
-const TESTIMONIALS = [
-  {
-    name: "Marcelo Ferreira",
-    company: "MF Logística",
-    text: "A Roosevelt cuida da nossa contabilidade há mais de 15 anos. A confiança que temos na equipe é o nosso maior ativo.",
-    rating: 5,
-    category: "Atendimento",
-  },
-  {
-    name: "Patrícia Almeida",
-    company: "PA Arquitetura",
-    text: "Resposta rápida, relatórios claros e nenhuma surpresa com o fisco. É isso que esperamos e sempre recebemos.",
-    rating: 5,
-    category: "Agilidade",
-  },
-  {
-    name: "Eduardo Nascimento",
-    company: "Grupo EN",
-    text: "Quando precisamos reestruturar a sociedade, a equipe nos guiou com segurança total. Zero problemas.",
-    rating: 5,
-    category: "Segurança",
-  },
-  {
-    name: "Juliana Costa",
-    company: "JC Importações",
-    text: "O planejamento tributário que fizeram para a minha empresa economizou mais do que eu imaginava ser possível.",
-    rating: 5,
-    category: "Consultoria",
-  },
-  {
-    name: "Ricardo Lopes",
-    company: "RL Construtora",
-    text: "Atendem com atenção pessoal mesmo sendo um escritório grande. Os sócios participam diretamente.",
-    rating: 5,
-    category: "Atendimento",
-  },
-  {
-    name: "Fernanda Braga",
-    company: "Braga & Associados",
-    text: "Migramos de outro escritório e a diferença na qualidade de informação e acompanhamento foi imediata.",
-    rating: 5,
-    category: "Consultoria",
-  },
-  {
-    name: "Anderson Silva",
-    company: "AS Distribuidora",
-    text: "Precisamos de resposta urgente sobre uma autuação e tivemos retorno no mesmo dia. Isso não tem preço.",
-    rating: 5,
-    category: "Agilidade",
-  },
-  {
-    name: "Camila Duarte",
-    company: "CD Eventos",
-    text: "A Roosevelt nos dá segurança para tomar decisões. Sabemos que os números estão corretos e atualizados.",
-    rating: 5,
-    category: "Segurança",
-  },
-];
+const CATEGORIES = ["Todos", "Atendimento", "Agilidade", "Segurança", "Consultoria", "Tradição"];
 
 export default function Testimonials() {
   const [filter, setFilter] = useState("Todos");
@@ -79,10 +22,10 @@ export default function Testimonials() {
           </h2>
           <div className="flex items-center gap-4 mt-6">
             <div className="flex gap-1">
-              {[1,2,3,4,5].map(s => <Star key={s} size={20} className="text-trust fill-trust" />)}
+              {[1,2,3,4,5].map(s => <Star key={s} size={20} className="text-yellow-400 fill-yellow-400" />)}
             </div>
             <span className="text-muted-foreground text-sm">
-              <strong className="text-foreground">5.0</strong> · {TESTIMONIALS.length} avaliações
+              <strong className="text-foreground">4.9</strong> · 64 avaliações no Google
             </span>
           </div>
         </FadeIn>

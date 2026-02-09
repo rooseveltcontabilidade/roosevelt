@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Carlos Eduardo Roosevelt",
+    "role": "Sócio-Diretor",
+    "credentials": [
+      "Mais de 35 anos de atuação em consultoria contábil",
+      "Especialista em planejamento tributário estratégico",
+      "Responsável por decisões de alto impacto para clientes de grande porte"
+    ],
+    "image": "/images/team/placeholder-carlos.jpg"
+  },
+  {
+    "name": "Ana Carolina Mendes",
+    "role": "Sócia-Diretora",
+    "credentials": [
+      "Referência em gestão de departamento pessoal e trabalhista",
+      "20+ anos de experiência em compliance empresarial",
+      "Atendimento direto a empresas em processos societários complexos"
+    ],
+    "image": "/images/team/placeholder-ana.jpg"
+  },
+  {
+    "name": "Roberto Augusto Campos",
+    "role": "Sócio-Diretor",
+    "credentials": [
+      "Liderança da área fiscal e de obrigações acessórias",
+      "Especialista em regimes tributários (Lucro Real, Presumido, Simples)",
+      "Condutor da transformação digital do escritório"
+    ],
+    "image": "/images/team/placeholder-roberto.jpg"
+  }
+]

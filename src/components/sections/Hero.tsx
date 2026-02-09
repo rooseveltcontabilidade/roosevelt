@@ -1,7 +1,7 @@
 import { getYearsOfExperience } from "@/lib/constants";
-import { AnimatedCounter, FadeIn } from "./Animations";
+import { AnimatedCounter, FadeIn } from "@/components/ui/Animations";
 import { ArrowRight, Users, Award } from "lucide-react";
-import heroImage from "@/assets/hero-office.jpg";
+
 
 export default function Hero() {
   const years = getYearsOfExperience();
@@ -11,7 +11,7 @@ export default function Hero() {
       {/* Background image with overlay */}
       <div className="absolute inset-0">
         <img
-          src={heroImage}
+          src="/Imagem_hero.png"
           alt="Escritório Roosevelt Contabilidade"
           className="w-full h-full object-cover opacity-15"
           loading="eager"
@@ -95,7 +95,7 @@ export default function Hero() {
             <div className="relative">
               <div className="aspect-[4/5] rounded-2xl overflow-hidden border border-primary-foreground/10">
                 <img
-                  src={heroImage}
+                  src="/Imagem_hero.png"
                   alt="Ambiente profissional Roosevelt"
                   className="w-full h-full object-cover"
                   loading="eager"

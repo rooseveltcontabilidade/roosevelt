@@ -1,57 +1,20 @@
 import { useState } from "react";
-import { FadeIn } from "./Animations";
+import { FadeIn } from "@/components/ui/Animations";
 import { FileText, Users, Calculator, Building2, ArrowRight } from "lucide-react";
 
-const SERVICES = [
-  {
-    id: "fiscal",
-    title: "Fiscal",
-    icon: FileText,
-    description: "Gestão tributária completa com foco em conformidade e economia fiscal. Análise contínua de regimes e obrigações para evitar riscos e otimizar resultados.",
-    deliverables: [
-      "Apuração e controle de tributos federais, estaduais e municipais",
-      "Planejamento tributário estratégico por regime",
-      "Gestão de obrigações acessórias e SPED",
-    ],
-    audience: "Empresas de todos os portes que buscam segurança fiscal e redução legal de carga tributária.",
-  },
-  {
-    id: "pessoal",
-    title: "Pessoal",
-    icon: Users,
-    description: "Departamento pessoal estratégico que vai além da folha de pagamento. Cuidamos de toda a relação trabalhista com compliance e eficiência.",
-    deliverables: [
-      "Folha de pagamento, encargos e benefícios",
-      "Admissões, rescisões e gestão de férias",
-      "eSocial e conformidade trabalhista completa",
-    ],
-    audience: "Empresas que precisam de gestão de pessoas sem riscos trabalhistas.",
-  },
-  {
-    id: "contabil",
-    title: "Contábil",
-    icon: Calculator,
-    description: "Contabilidade consultiva com relatórios claros e análises que suportam decisões de negócio. Não fazemos apenas lançamentos — entregamos inteligência contábil.",
-    deliverables: [
-      "Escrituração contábil e demonstrações financeiras",
-      "Relatórios gerenciais personalizados",
-      "Análise de indicadores e suporte a decisões",
-    ],
-    audience: "Empresas que enxergam a contabilidade como ferramenta estratégica de gestão.",
-  },
-  {
-    id: "societario",
-    title: "Societário",
-    icon: Building2,
-    description: "Suporte completo em estruturação societária, desde a abertura até alterações contratuais complexas. Segurança jurídica em cada movimento.",
-    deliverables: [
-      "Constituição, alteração e encerramento de empresas",
-      "Reestruturação societária e fusões",
-      "Registro em órgãos competentes e certidões",
-    ],
-    audience: "Empreendedores e empresas em fase de reestruturação ou expansão.",
-  },
-];
+import SERVICES_DATA from "@/content/services.json";
+
+const ICON_MAP = {
+  FileText,
+  Users,
+  Calculator,
+  Building2
+};
+
+const SERVICES = SERVICES_DATA.map(s => ({
+  ...s,
+  icon: ICON_MAP[s.icon as keyof typeof ICON_MAP]
+}));
 
 export default function Services() {
   const [active, setActive] = useState(0);

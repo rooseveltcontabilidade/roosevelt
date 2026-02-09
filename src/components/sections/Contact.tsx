@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FadeIn } from "./Animations";
+import { FadeIn } from "@/components/ui/Animations";
 import { CONTACT } from "@/lib/constants";
 import { Phone, Mail, MapPin, Send, CheckCircle2 } from "lucide-react";
 

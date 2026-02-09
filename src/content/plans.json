@@ -1,0 +1,43 @@
+[
+  {
+    "id": "essencial",
+    "name": "Essencial",
+    "price": "Sob Consulta",
+    "description": "Ideal para quem está começando ou tem estrutura enxuta.",
+    "features": [
+      "Contabilidade Digital",
+      "Folha de pagamento (até 5 vidas)",
+      "Apuração de impostos (Simples Nacional)",
+      "Atendimento via WhatsApp e E-mail"
+    ],
+    "recommended": false
+  },
+  {
+    "id": "pro",
+    "name": "Profissional",
+    "price": "Sob Consulta",
+    "description": "Para empresas em crescimento que precisam de suporte próximo.",
+    "features": [
+      "Tudo do Essencial",
+      "Planejamento Tributário Anual",
+      "Relatórios Gerenciais Trimestrais",
+      "Atendimento Prioritário",
+      "Reunião de alinhamento semestral"
+    ],
+    "recommended": true
+  },
+  {
+    "id": "enterprise",
+    "name": "Corporativo",
+    "price": "Sob Consulta",
+    "description": "Gestão completa e consultoria estratégica para grandes operações.",
+    "features": [
+      "Tudo do Profissional",
+      "Gestão Financeira (BPO) opcional",
+      "Consultoria Societária Ilimitada",
+      "Reuniões Mensais de Resultados",
+      "Auditoria preventiva permanente"
+    ],
+    "recommended": false
+  }
+]

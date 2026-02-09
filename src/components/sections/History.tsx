@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FadeIn } from "./Animations";
+import { FadeIn } from "@/components/ui/Animations";
 import { getYearsOfExperience } from "@/lib/constants";
 import { Zap, Building, Monitor, FileText, Users, TrendingUp } from "lucide-react";
 
