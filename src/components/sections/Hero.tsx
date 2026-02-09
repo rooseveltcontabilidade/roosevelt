@@ -27,7 +27,7 @@ export default function Hero() {
               <div className="flex items-end gap-6 md:gap-8">
                 {/* Monólito */}
                 <div className="flex-shrink-0">
-                  <span className="font-display font-black text-[7rem] md:text-[10rem] lg:text-[12rem] leading-none text-trust/20">
+                  <span className="font-display font-black text-[5rem] md:text-[10rem] lg:text-[12rem] leading-none text-trust/20">
                     <AnimatedCounter end={years} />
                   </span>
                 </div>

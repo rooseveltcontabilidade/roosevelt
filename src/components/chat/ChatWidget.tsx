@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { MessageSquare, X, Send, Bot, Minimize2, Maximize2, Loader2, Sparkles, Plus, Link as LinkIcon } from "lucide-react";
+import { MessageSquare, X, Send, Bot, Minimize2, Maximize2, Loader2, Sparkles, Plus, Link as LinkIcon, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const WhatsAppIcon = ({ className }: { className?: string }) => (
@@ -68,129 +68,247 @@ export default function ChatWidget() {
   };
 
   useEffect(() => {
+    // Dispatch custom event for chat state
+    const event = new CustomEvent('chat-state-change', { 
+      detail: { isOpen: isChatOpen, isMinimized } 
+    });
+    window.dispatchEvent(event);
+  }, [isChatOpen, isMinimized]);
+
+  useEffect(() => {
     if (isChatOpen) {
       scrollToBottom();
     }
   }, [messages, isChatOpen]);
 
+  const [isHidden, setIsHidden] = useState(false);
+
+  useEffect(() => {
+    const handleMobileMenuChange = (e: CustomEvent) => {
+      const isMenuOpen = e.detail.isOpen;
+      setIsHidden(isMenuOpen);
+      if (isMenuOpen) {
+        setIsChatOpen(false);
+        setIsMenuOpen(false);
+      }
+    };
+
+    window.addEventListener('mobile-menu-change' as any, handleMobileMenuChange as any);
+    return () => window.removeEventListener('mobile-menu-change' as any, handleMobileMenuChange as any);
+  }, []);
+
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const toggleChat = () => {
       setIsChatOpen(!isChatOpen);
-      // Optional: Close menu when opening chat if desired, or keep it open.
-      // setIsMenuOpen(false); 
   };
 
-  return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-center gap-2 font-sans">
-      {/* Chat Window */}
-      {isChatOpen && (
-        <Card className={cn(
-          "w-[300px] sm:w-[350px] md:w-[380px] shadow-2xl border-trust/20 flex flex-col animate-in slide-in-from-bottom-10 fade-in duration-300 overflow-hidden mb-0 origin-bottom-right absolute bottom-0 right-20",
-          isMinimized ? "h-auto" : "h-[450px]"
-        )}>
-          <CardHeader 
-            className="bg-navy text-primary-foreground p-4 flex flex-row items-center justify-between space-y-0 shrink-0 cursor-pointer"
-            onClick={() => isMinimized && setIsMinimized(false)}
-          >
-            <div className="flex items-center gap-3">
-              <div className="p-2 bg-white/10 rounded-full">
-                <Bot size={20} className="text-trust" />
-              </div>
-              <div>
-                <CardTitle className="text-base font-bold flex items-center gap-2">
-                  Roosevelt IA <Sparkles size={12} className="text-trust" />
-                </CardTitle>
-                <p className="text-xs text-white/70">Online agora</p>
-              </div>
-            </div>
-            <div className="flex gap-1">
-              <Button variant="ghost" size="icon" className="h-8 w-8 text-white hover:bg-white/20 hover:text-white" onClick={(e) => { e.stopPropagation(); setIsMinimized(!isMinimized); }}>
-                {isMinimized ? <Maximize2 size={18} /> : <Minimize2 size={18} />}
-              </Button>
-              <Button variant="ghost" size="icon" className="h-8 w-8 text-white hover:bg-white/20 hover:text-white" onClick={(e) => { e.stopPropagation(); setIsChatOpen(false); }}>
-                <X size={18} />
-              </Button>
-            </div>
-          </CardHeader>
-          
-          {!isMinimized && (
-            <>
-              <CardContent className="flex-1 p-0 overflow-hidden bg-muted/30 relative">
-                <ScrollArea className="h-full p-4">
-                  <div className="flex flex-col gap-4 min-h-full pb-2">
-                    {messages.length === 0 && (
-                      <div className="text-center text-sm text-muted-foreground mt-8 p-6 bg-background/50 rounded-xl border border-border/50 mx-2 shadow-sm">
-                        <div className="w-12 h-12 bg-trust/10 rounded-full flex items-center justify-center mx-auto mb-3">
-                          <Bot size={24} className="text-trust" />
-                        </div>
-                        <p className="font-medium text-foreground mb-1">Olá! Bem-vindo à Roosevelt.</p>
-                        <p className="text-xs leading-relaxed">
-                          Sou sua assistente virtual. Posso ajudar com serviços contábeis, abertura de empresas e dúvidas sobre nossos planos. Como posso ajudar hoje?
+  // --- Render Helpers ---
+
+  // 1. Desktop Chat (Original Card)
+  const DesktopChat = (
+    <Card className={cn(
+      "hidden md:flex flex-col shadow-2xl border-trust/20 animate-in slide-in-from-bottom-10 fade-in duration-300 overflow-hidden origin-bottom-right absolute right-20 transition-all",
+       isMinimized ? "h-auto bottom-0 w-[300px]" : "h-[450px] bottom-0 w-[380px]"
+    )}>
+      <CardHeader 
+        className="bg-navy text-primary-foreground p-4 flex flex-row items-center justify-between space-y-0 shrink-0 cursor-pointer"
+        onClick={() => isMinimized && setIsMinimized(false)}
+      >
+        <div className="flex items-center gap-3">
+          <div className="p-2 bg-white/10 rounded-full">
+            <Bot size={20} className="text-trust" />
+          </div>
+          <div>
+            <CardTitle className="text-base font-bold flex items-center gap-2">
+              Roosevelt IA <Sparkles size={12} className="text-trust" />
+            </CardTitle>
+            <p className="text-xs text-white/70">Online agora</p>
+          </div>
+        </div>
+        <div className="flex gap-1">
+          <Button variant="ghost" size="icon" className="h-8 w-8 text-white hover:bg-white/20 hover:text-white" onClick={(e) => { e.stopPropagation(); setIsMinimized(!isMinimized); }}>
+            {isMinimized ? <Maximize2 size={18} /> : <Minimize2 size={18} />}
+          </Button>
+          <Button variant="ghost" size="icon" className="h-8 w-8 text-white hover:bg-white/20 hover:text-white" onClick={(e) => { e.stopPropagation(); setIsChatOpen(false); }}>
+            <X size={18} />
+          </Button>
+        </div>
+      </CardHeader>
+      
+      {!isMinimized && (
+        <>
+          <CardContent className="flex-1 p-0 overflow-hidden bg-muted/30 relative">
+            <ScrollArea className="h-full p-4">
+               {renderMessages()}
+            </ScrollArea>
+          </CardContent>
+          {renderInput()}
+        </>
+      )}
+    </Card>
+  );
+
+  // 2. Mobile Chat (Full Screen & FAB)
+  const MobileChat = (
+    <>
+      {/* Mobile Full Screen Chat */}
+      {isChatOpen && !isMinimized && (
+        <div className="md:hidden fixed inset-0 z-50 bg-background flex flex-col animate-in slide-in-from-bottom duration-300">
+           {/* Mobile Header */}
+           <div className="flex items-center justify-between p-4 border-b border-border bg-navy text-primary-foreground shrink-0 pb-safe-top">
+              <div className="flex items-center gap-3">
+                 <Button variant="ghost" size="icon" className="text-white hover:bg-white/10 -ml-2" onClick={() => setIsMinimized(true)}>
+                    <ChevronDown size={24} />
+                 </Button>
+                 <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center">
+                        <Bot size={20} className="text-trust" />
+                    </div>
+                    <div>
+                        <h3 className="font-bold text-lg leading-tight">Roosevelt IA</h3>
+                        <p className="text-xs text-white/60 flex items-center gap-1">
+                        <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
+                        Online agora
                         </p>
-                      </div>
-                    )}
-                    
-                    {messages.map((m: any) => (
-                      <div
-                        key={m.id}
-                        className={cn(
-                          "flex w-max max-w-[85%] flex-col gap-1 rounded-2xl px-4 py-2.5 text-sm shadow-sm",
-                          m.role === 'user' 
-                            ? "ml-auto bg-trust text-trust-foreground rounded-br-none" 
-                            : "bg-background border border-border text-foreground rounded-bl-none"
-                        )}
-                      >
-                        {m.content}
-                      </div>
-                    ))}
-                    
-                    {isLoading && messages[messages.length - 1]?.role === 'user' && (
-                       <div className="flex w-max max-w-[85%] flex-col gap-2 rounded-2xl rounded-bl-none px-4 py-3 text-sm bg-background border border-border text-foreground shadow-sm">
-                        <div className="flex gap-1 items-center h-5">
-                          <span className="w-1.5 h-1.5 bg-foreground/40 rounded-full animate-bounce [animation-delay:-0.3s]"></span>
-                          <span className="w-1.5 h-1.5 bg-foreground/40 rounded-full animate-bounce [animation-delay:-0.15s]"></span>
-                          <span className="w-1.5 h-1.5 bg-foreground/40 rounded-full animate-bounce"></span>
-                        </div>
-                      </div>
-                    )}
-                    
-                    {error && (
-                      <div className="text-xs text-destructive text-center mt-2 p-3 bg-destructive/10 rounded-lg border border-destructive/20 mx-4">
-                        Estamos offline no momento. Por favor, tente pelo WhatsApp.
-                      </div>
-                    )}
+                    </div>
+                 </div>
+              </div>
+              <Button variant="ghost" size="icon" className="text-white/80 hover:bg-white/10 rounded-full" onClick={() => setIsChatOpen(false)}>
+                <X size={22} />
+              </Button>
+           </div>
 
-                    <div ref={messagesEndRef} />
-                  </div>
-                </ScrollArea>
-              </CardContent>
+           {/* Mobile Content */}
+           <div className="flex-1 overflow-hidden bg-muted/20 relative">
+              <ScrollArea className="h-full p-4">
+                 {renderMessages()}
+              </ScrollArea>
+           </div>
 
-              <CardFooter className="p-3 bg-background border-t border-border shrink-0">
-                <form onSubmit={handleSubmit} className="flex w-full items-center gap-2">
-                  <Input 
-                    value={input} 
-                    onChange={handleInputChange} 
-                    placeholder="Digite sua dúvida..." 
-                    className="flex-1 focus-visible:ring-trust bg-muted/50 border-muted-foreground/20"
-                  />
-                  <Button 
-                    type="submit" 
-                    size="icon" 
-                    disabled={isLoading || !input.trim()} 
-                    className="bg-trust hover:bg-electric text-trust-foreground shadow-sm shrink-0 transition-all"
-                  >
-                    {isLoading ? <Loader2 size={18} className="animate-spin" /> : <Send size={18} />}
-                  </Button>
-                </form>
-              </CardFooter>
-            </>
-          )}
-        </Card>
+           {/* Mobile Input */}
+           <div className="p-3 bg-background border-t border-border shrink-0 pb-safe-bottom">
+             <form onSubmit={handleSubmit} className="flex w-full items-center gap-2">
+               <Input 
+                 value={input} 
+                 onChange={handleInputChange} 
+                 placeholder="Digite sua dúvida..." 
+                 className="flex-1 h-12 rounded-full focus-visible:ring-trust bg-muted/50 border-muted-foreground/20 px-4 text-base"
+               />
+               <Button 
+                 type="submit" 
+                 size="icon" 
+                 disabled={isLoading || !input.trim()} 
+                 className="h-12 w-12 rounded-full bg-trust hover:bg-electric text-trust-foreground shadow-sm shrink-0 transition-all"
+               >
+                 {isLoading ? <Loader2 size={20} className="animate-spin" /> : <Send size={20} />}
+               </Button>
+             </form>
+           </div>
+        </div>
       )}
 
+      {/* Mobile FAB (Minimized) */}
+      {isChatOpen && isMinimized && (
+        <div 
+          className="md:hidden fixed bottom-6 right-24 z-50 animate-in slide-in-from-bottom-10 zoom-in-50 duration-300"
+          onClick={() => setIsMinimized(false)}
+        >
+          <div className="w-14 h-14 bg-navy text-primary-foreground rounded-full shadow-xl flex items-center justify-center cursor-pointer border-2 border-white hover:scale-105 transition-transform">
+             <Bot size={28} className="text-trust" />
+             {/* Optional Badge if needed later */}
+          </div>
+        </div>
+      )}
+    </>
+  );
+
+  function renderMessages() {
+    return (
+      <div className="flex flex-col gap-4 min-h-full pb-2">
+      {messages.length === 0 && (
+        <div className="text-center text-sm text-muted-foreground mt-8 p-6 bg-background/50 rounded-xl border border-border/50 mx-2 shadow-sm">
+          <div className="w-12 h-12 bg-trust/10 rounded-full flex items-center justify-center mx-auto mb-3">
+            <Bot size={24} className="text-trust" />
+          </div>
+          <p className="font-medium text-foreground mb-1">Olá! Bem-vindo à Roosevelt.</p>
+          <p className="text-xs leading-relaxed">
+            Sou sua assistente virtual. Posso ajudar com serviços contábeis, abertura de empresas e dúvidas sobre nossos planos. Como posso ajudar hoje?
+          </p>
+        </div>
+      )}
+      
+      {messages.map((m: any) => (
+        <div
+          key={m.id}
+          className={cn(
+            "flex w-max max-w-[85%] flex-col gap-1 rounded-2xl px-4 py-2.5 text-sm shadow-sm",
+            m.role === 'user' 
+              ? "ml-auto bg-trust text-trust-foreground rounded-br-none" 
+              : "bg-background border border-border text-foreground rounded-bl-none"
+          )}
+        >
+          {m.content}
+        </div>
+      ))}
+      
+      {isLoading && messages[messages.length - 1]?.role === 'user' && (
+          <div className="flex w-max max-w-[85%] flex-col gap-2 rounded-2xl rounded-bl-none px-4 py-3 text-sm bg-background border border-border text-foreground shadow-sm">
+          <div className="flex gap-1 items-center h-5">
+            <span className="w-1.5 h-1.5 bg-foreground/40 rounded-full animate-bounce [animation-delay:-0.3s]"></span>
+            <span className="w-1.5 h-1.5 bg-foreground/40 rounded-full animate-bounce [animation-delay:-0.15s]"></span>
+            <span className="w-1.5 h-1.5 bg-foreground/40 rounded-full animate-bounce"></span>
+          </div>
+        </div>
+      )}
+      
+      {error && (
+        <div className="text-xs text-destructive text-center mt-2 p-3 bg-destructive/10 rounded-lg border border-destructive/20 mx-4">
+          Estamos offline no momento. Por favor, tente pelo WhatsApp.
+        </div>
+      )}
+
+      <div ref={messagesEndRef} />
+    </div>
+    );
+  }
+
+  function renderInput() {
+    return (
+      <CardFooter className="p-3 bg-background border-t border-border shrink-0">
+        <form onSubmit={handleSubmit} className="flex w-full items-center gap-2">
+          <Input 
+            value={input} 
+            onChange={handleInputChange} 
+            placeholder="Digite sua dúvida..." 
+            className="flex-1 focus-visible:ring-trust bg-muted/50 border-muted-foreground/20"
+          />
+          <Button 
+            type="submit" 
+            size="icon" 
+            disabled={isLoading || !input.trim()} 
+            className="bg-trust hover:bg-electric text-trust-foreground shadow-sm shrink-0 transition-all"
+          >
+            {isLoading ? <Loader2 size={18} className="animate-spin" /> : <Send size={18} />}
+          </Button>
+        </form>
+      </CardFooter>
+    );
+  }
+
+  return (
+    <div className={cn("fixed bottom-6 right-6 z-50 flex-col items-center gap-2 font-sans transition-opacity duration-200", isHidden ? "hidden md:flex" : "flex")}>
+      {/* Desktop Chat */}
+      {isChatOpen && DesktopChat}
+
+      {/* Mobile Chat */}
+      {MobileChat}
+
       {/* Speed Dial Menu Items */}
-      {/* Speed Dial Menu Items */}
-      <div className={cn("flex flex-col gap-2 transition-all duration-300 items-center", isMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10 pointer-events-none")}>
+      <div className={cn(
+        "flex flex-col gap-2 transition-all duration-300 items-center", 
+        isMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10 pointer-events-none",
+        (isChatOpen && !isMinimized) ? "md:opacity-100 md:translate-y-0 opacity-0 translate-y-10 pointer-events-none" : ""  // Hide on mobile if Chat Open & Not Minimized
+      )}>
         {/* Chat Button */}
         <Button
           variant="secondary"
@@ -230,7 +348,8 @@ export default function ChatWidget() {
         onClick={toggleMenu}
         className={cn(
           "rounded-full w-14 h-14 p-0 shadow-xl transition-all duration-300 relative z-50 flex items-center justify-center",
-          isMenuOpen ? "bg-navy text-white hover:bg-navy/90 rotate-45" : "bg-trust hover:bg-electric text-trust-foreground hover:scale-105 hover:-translate-y-1"
+          isMenuOpen ? "bg-navy text-white hover:bg-navy/90 rotate-45" : "bg-trust hover:bg-electric text-trust-foreground hover:scale-105 hover:-translate-y-1",
+          (isChatOpen && !isMinimized) && "opacity-0 pointer-events-none delay-100 md:opacity-100 md:pointer-events-auto md:delay-0" // Hide only on mobile open
         )}
       >
           <Plus size={28} />

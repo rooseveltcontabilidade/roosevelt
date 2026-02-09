@@ -22,13 +22,37 @@ export default function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    // Dispatch custom event for mobile menu state
+    const event = new CustomEvent('mobile-menu-change', { detail: { isOpen: menuOpen } });
+    window.dispatchEvent(event);
+    
+    if (menuOpen) {
+      document.body.style.overflow = 'hidden'; // Prevent scroll when menu is open
+    } else {
+      document.body.style.overflow = '';
+    }
+  }, [menuOpen]);
+
+  const [isChatFullScreen, setIsChatFullScreen] = useState(false);
+
+  useEffect(() => {
+    const handleChatStateChange = (e: CustomEvent) => {
+      const { isOpen, isMinimized } = e.detail;
+      setIsChatFullScreen(isOpen && !isMinimized);
+    };
+
+    window.addEventListener('chat-state-change' as any, handleChatStateChange as any);
+    return () => window.removeEventListener('chat-state-change' as any, handleChatStateChange as any);
+  }, []);
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled
           ? "bg-navy/95 backdrop-blur-md py-3 shadow-lg"
           : "bg-transparent py-5 md:py-6"
-      }`}
+      } ${isChatFullScreen ? "hidden md:block" : ""}`}
     >
       <div className="container-editorial flex items-center justify-between">
         {/* Logo */}
