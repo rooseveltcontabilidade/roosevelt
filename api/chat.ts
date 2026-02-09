@@ -1,9 +1,5 @@
-import { OpenAIStream, StreamingTextResponse } from 'ai';
-import OpenAI from 'openai';
-
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+import { openai } from '@ai-sdk/openai';
+import { streamText, convertToCoreMessages } from 'ai';
 
 export const config = {
   runtime: 'edge',
@@ -35,7 +31,7 @@ Responda educadamente que não é o foco do escritório e sugira buscar um espec
 Se não souber a resposta:
 NÃO invente. Diga: "Para essa questão específica, recomendo falar diretamente com nossos consultores." e forneça o link do WhatsApp.
 
-Link do WhatsApp para conversão: https://wa.me/5551999999999 (substituir pelo real se houver).
+Link do WhatsApp para conversão: https://wa.me/555132646306
 
 Tabela de Preços:
 Nossos planos são personalizados. Não forneça valores fixos no chat. Diga que "os valores variam conforme o regime tributário e volume de notas/funcionários" e convide para uma cotação.
@@ -49,19 +45,15 @@ export default async function handler(req: Request) {
   try {
     const { messages } = await req.json();
 
-    const response = await openai.chat.completions.create({
-      model: 'gpt-4o-mini',
-      stream: true,
-      messages: [
-        { role: 'system', content: SYSTEM_PROMPT },
-        ...messages
-      ],
+    const result = await streamText({
+      model: openai('gpt-4o-mini'),
+      system: SYSTEM_PROMPT,
+      messages: convertToCoreMessages(messages),
       temperature: 0.3,
-      max_tokens: 500,
+      maxTokens: 500,
     });
 
-    const stream = OpenAIStream(response);
-    return new StreamingTextResponse(stream);
+    return result.toDataStreamResponse();
 
   } catch (error) {
     console.error('Error in chat API:', error);
