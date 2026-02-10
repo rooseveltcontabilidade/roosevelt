@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
-import { generateReply } from './src/lib/llm.ts';
+import { generateReply } from './src/lib/llm';
 
 const app = express();
 const PORT = 3001;
