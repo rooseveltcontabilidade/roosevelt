@@ -1,4 +1,4 @@
-import { SYSTEM_PROMPT } from './ai/config';
+import { SYSTEM_PROMPT } from './ai/config.js';
 
 export interface ChatMessage {
   role: 'system' | 'user' | 'assistant';

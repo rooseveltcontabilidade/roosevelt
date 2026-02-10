@@ -120,7 +120,24 @@ const MessageList = ({ messages, isLoading, error }: { messages: Message[], isLo
                 : "bg-background border border-border text-foreground rounded-bl-none"
             )}
           >
-            {m.content}
+            {m.content.split(/(https?:\/\/[^\s]+)/g).map((part, i) => (
+              part.match(/https?:\/\/[^\s]+/) ? (
+                <a 
+                  key={i} 
+                  href={part} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className={cn(
+                    "underline hover:opacity-80 break-all",
+                    m.role === 'user' ? "text-white" : "text-blue-600 dark:text-blue-400"
+                  )}
+                >
+                  {part}
+                </a>
+              ) : (
+                part
+              )
+            ))}
           </div>
         ))}
         

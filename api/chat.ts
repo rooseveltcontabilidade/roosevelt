@@ -2,7 +2,7 @@ export const config = {
     runtime: 'edge',
 };
 
-import { generateReply } from '../src/lib/llm';
+import { generateReply } from '../src/lib/llm.js';
 
 export default async function handler(req: Request) {
     if (req.method !== 'POST') {
