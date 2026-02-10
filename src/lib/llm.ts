@@ -15,7 +15,12 @@ const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
 const OPENAI_API_URL = 'https://api.openai.com/v1/chat/completions';
 
 export async function generateReply({ provider = 'groq', messages, temperature = 0.2 }: LLMRequest): Promise<string> {
-  const selectedProvider = process.env.LLM_PROVIDER || provider;
+  let selectedProvider = process.env.LLM_PROVIDER || provider;
+
+  // Fallback para variável antiga USE_GROQ se LLM_PROVIDER não estiver definido
+  if (!process.env.LLM_PROVIDER && process.env.USE_GROQ) {
+      selectedProvider = process.env.USE_GROQ === 'true' ? 'groq' : 'openai';
+  }
   
   // Clean user messages and inject strict system prompt
   const userMessages = messages.filter(m => m.role !== 'system');
