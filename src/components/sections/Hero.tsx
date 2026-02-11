@@ -21,7 +21,7 @@ export default function Hero() {
 
       <div className="relative container-editorial pt-32 md:pt-40 lg:pt-44 pb-20 md:pb-28">
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-          {/* Left: Monolith 61 + Copy */}
+          {/* Left: Monolith (years) + Copy */}
           <div className="lg:col-span-7 space-y-8">
             <FadeIn>
               <div className="flex items-end gap-6 md:gap-8">
