@@ -14,21 +14,194 @@
 //    - maxTokens: 600 (espaço para respostas completas)
 // ============================================================
 
-// --- KNOWLEDGE BASE (Fonte da Verdade — NÃO ALTERAR) ---
+// --- KNOWLEDGE BASE (Fonte da Verdade — Expandida com informações do site) ---
 export const KNOWLEDGE_BASE = `
+═══════════════════════════════════════════════════════════════
+📖 KNOWLEDGE BASE — ROOSEVELT CONTABILIDADE
+Base de conhecimento completa para o chatbot Roosevelt IA
+═══════════════════════════════════════════════════════════════
+
+🏢 SOBRE A ROOSEVELT CONTABILIDADE
+───────────────────────────────────
+• Fundada em: 02 de janeiro de 1965 por Telmo Gerhardt
+• Anos de experiência: ${new Date().getFullYear() - 1965} anos
+• Sede: Rua Olinda, 300 — São Geraldo, Porto Alegre — RS
+• Telefone: (51) 3264-6306
+• WhatsApp: (51) 3264-6306
+• E-mail: contato@rooseveltcontabilidade.com.br
+
+📜 NOSSA HISTÓRIA
+───────────────────────────────────
+1965 - A Fundação: Em 02 de janeiro, Telmo Gerhardt funda o Escritório Contábil Roosevelt. O nome homenageia a primeira sede na Av. Franklin Roosevelt e a admiração pelo presidente americano.
+
+1979 - Visão e Estratégia: Inauguração da sede própria na Rua Olinda, escolhida estrategicamente para facilitar o acesso e oferecer maior conforto aos clientes.
+
+DNA Familiar: Uma empresa familiar onde a contabilidade corre no sangue. Os filhos de Telmo — Daniel, Deni e Rochelle — formaram-se contadores, perpetuando o orgulho e a profissão do pai.
+
+Valores que Permanece m: Após o falecimento do Sr. Telmo em 2017, mantemos vivos os valores de ética, honestidade, qualidade, confiança, respeito e empatia em cada atendimento.
+
+Hoje: Unimos a solidez de décadas de experiência à inovação constante, honrando a confiança de clientes que estão conoscos desde o início.
+
+🎯 ÁREAS DE ATUAÇÃO (SERVIÇOS ESPECIALIZADOS)
+───────────────────────────────────────────────
+
+1. FISCAL
+• Descrição: Gestão tributária completa com foco em conformidade e economia fiscal. Análise contínua de regimes e obrigações para evitar riscos e otimizar resultados.
+• Como funciona:
+  - Buscamos via sistema todas as notas fiscais da empresa (saída, entrada e serviço)
+  - Ao apurar impostos, fazemos auditorias para confirmar se está pagando o mínimo possível
+  - Enviamos guias por e-mail com protocolo, fica disponível no aplicativo
+  - Cliente tem acesso aos dashboards
+• Para quem: Empresas de todos os portes que buscam segurança fiscal e redução legal de carga tributária
+
+2. PESSOAL (Departamento Pessoal)
+• Descrição: Departamento pessoal estratégico que vai além da folha de pagamento. Cuidamos de toda a relação trabalhista com compliance e eficiência.
+• Como funciona:
+  - Empresa preenche informações variáveis na plataforma Onvio
+  - RH faz análises e processamentos, com avisos de divergências ou riscos
+  - Enviamos guias por e-mail com protocolo, fica disponível no aplicativo
+  - Funcionários recebem automaticamente por e-mail e têm acesso à plataforma
+• Para quem: Empresas que precisam de gestão de pessoas sem riscos trabalhistas
+
+3. CONTÁBIL
+• Descrição: Contabilidade consultiva com relatórios claros e análises que suportam decisões de negócio. Não fazemos apenas lançamentos — entregamos inteligência contábil.
+• Como funciona:
+  - Empresa envia todos os documentos e informações necessárias
+  - Verificamos com a empresa as pendências
+  - Fechamos a contabilidade
+  - Publicamos balancetes, relatórios gerenciais (disponível no aplicativo)
+  - Cliente tem acesso aos dashboards
+• Para quem: Empresas que enxergam a contabilidade como ferramenta estratégica de gestão
+
+4. SOCIETÁRIO
+• Descrição: Suporte completo em estruturação societária, desde abertura até alterações contratuais complexas. Segurança jurídica em cada movimento.
+• Como funciona:
+  - Empresa solicita alteração
+  - Elaboramos a minuta, após aprovação é assinado digitalmente e encaminhado a todos os órgãos
+  - Publicamos todos os comprovantes no site e/ou aplicativo
+• Para quem: Empreendedores e empresas em fase de reestruturação ou expansão
+
+💎 DIFERENCIAIS ROOSEVELT
+──────────────────────────
+
+1. Planejamento Tributário
+Realizamos anualmente o planejamento tributário para garantir que a empresa fique no melhor regime tributário.
+
+2. Envios pelo App, E-mail e WhatsApp
+Os envios são através de sistema. Cliente recebe por e-mail o documento/guia sem precisar de senha, além de ficar disponível no app e WhatsApp. Protocolo eletrônico de todos os acessos.
+
+3. Roosevelt BI
+Acesso imediato a gráficos e relatórios que ajudam a empresa na análise e tomada de decisões ágeis e assertivas.
+
+4. Atendimento 24 Horas
+Atendimento automatizado via WhatsApp para solicitar documentos e guias no momento exato que você precisar.
+
+5. Inteligência Artificial
+Engajamento total em trazer as melhores oportunidades e soluções aos nossos clientes através da inteligência artificial aliada à nossa expertise.
+
+6. Seguro Responsabilidade Civil
+Temos um seguro focado em entregar maior tranquilidade e segurança para operações de alto valor e grande responsabilidade.
+
+7. Atendimento humano, rápido e com especialistas
+Atendemos via WhatsApp, telefone e e-mail, sempre com especialistas, não com atendimentos genéricos.
+
+8. Acesso total aos documentos (Área VIP + App)
+
+9. Atuação preventiva e monitoramento diário
+
+10. Atendimento 100% digital
+
+11. Atendimento em todos os regimes (Simples Nacional, Lucro Presumido, Lucro Real)
+
+12. Certificado Digital próprio
+
+13. Recibo Vitalício automatizado
+
+14. Arquivo de folha direto para bancos
+
+💰 PLANOS E PREÇOS
+──────────────────
+
+Temos 3 planos personalizados baseados no porte e complexidade da empresa:
+
+PLANO START (Entrega Anual)
+• Ideal para: Empresas sem funcionários que estão começando no mercado e desejam economizar para conseguir se destacar
+• Inclui:
+  - Contabilidade Simplificada
+  - Integração via caixa contábil
+  - Movimentações fiscais e folha
+  - Atende bancos e fornecedores
+
+PLANO GOLD (Entrega Trimestral) ⭐ MAIS ESCOLHIDO
+• Ideal para: Empresas em crescimento que desejam alavancar seu negócio no mercado
+• Inclui:
+  - Contabilidade Completa
+  - Integração bancária e fiscal
+  - Conciliações detalhadas
+  - Atende distribuição de lucros
+
+PLANO PREMIUM (Entrega Mensal)
+• Ideal para: Empresas mais estruturadas e consolidadas que procuram melhor gestão do negócio
+• Inclui:
+  - Contabilidade Completa e Personalizada
+  - Acesso ao Roosevelt BI
+  - Prioridade nas novidades
+  - Consultoria empresarial
+  - Suporte exclusivo
+
+IMPORTANTE: Valores são sob medida. Para cotação exata, solicite proposta: https://forms.gle/3YWG1ALy9exLhRZb6
+
+🌐 ÁREAS DE ACESSO PARA CLIENTES
+────────────────────────────────
+Nossos clientes têm acesso a 3 plataformas integradas:
+
+1. ONVIO (https://onvio.com.br/clientcenter/pt/home)
+• O que é: Plataforma principal para gestão de documentos contábeis e fiscais
+• Funcionalidades:
+  - Acesso a todos os documentos contábeis (balancetes, DREs, balanços)
+  - Visualização de obrigações fiscais e prazos
+  - Upload de documentos para o contador
+  - Consulta de guias e impostos
+  - Histórico completo de movimentações
+• Como acessar: Cliente recebe login e senha por e-mail após a contratação
+
+2. ACESSÓRIAS - Área VIP (http://vip.acessorias.com/roosevelt)
+• O que é: Sistema de solicitações e atendimento direto com a equipe
+• Funcionalidades:
+  - Abertura de chamados e solicitações
+  - Acompanhamento de demandas em tempo real
+  - Chat direto com especialistas
+  - Central de notificações
+  - Histórico de atendimentos
+• Como acessar: Mesmo login do Onvio
+
+3. ROOSEVELT BI (http://web.roosevelt.com.br/)
+• O que é: Plataforma de Business Intelligence com indicadores e relatórios gerenciais
+• Funcionalidades:
+  - Gráficos e dashboards interativos
+  - Análise de faturamento, despesas e lucratividade
+  - Indicadores financeiros em tempo real
+  - Comparativos mensais e anuais
+  - Relatórios personalizados para tomada de decisão
+• Disponível para: Clientes dos planos Gold e Premium
+• Como acessar: Login específico fornecido pela equipe Roosevelt
+
+IMPORTANTE: Todos os documentos e guias são enviados automaticamente por e-mail com protocolo eletrônico, sem necessidade de senhas adicionais.
+
+❓ TOP 10 DÚVIDAS FREQUENTES
+────────────────────────────
+
 1. Quanto custa abrir uma empresa?
-Depende do tipo de empresa, mas normalmente fica entre R$ 800,00 e R$ 980,00.
-Esse valor já inclui a taxa da JUCISRS.
+Depende do tipo de empresa, mas normalmente fica entre R$ 800,00 e R$ 980,00. Esse valor já inclui a taxa da JUCISRS.
 Não estão inclusos: taxa de cartório (quando aplicável), anuidades de conselhos de classe, certificado digital e taxa de alvará, se houver.
-Não realizamos abertura de empresas fora do Rio Grande do Sul.
+IMPORTANTE: Não realizamos abertura de empresas fora do Rio Grande do Sul.
 
 2. Quanto tempo demora para abrir a empresa?
-Em média de 3 a 5 dias úteis.
-O prazo depende bastante do cliente: rapidez nos retornos, clareza nas escolhas como nome empresarial, atividades e endereço.
+Em média de 3 a 5 dias úteis. O prazo depende bastante do cliente: rapidez nos retornos, clareza nas escolhas como nome empresarial, atividades e endereço.
 
 3. Vocês atendem MEI?
 Não realizamos a contabilidade e manutenção mensal de MEI.
-Atuamos apenas na regularização do MEI, seja para colocar pendências em dia ou para transformação em Ltda, inclusive em casos de exclusão do MEI ou crescimento do negócio.
+Atuamos APENAS na regularização do MEI: colocar pendências em dia, transformação em Ltda, casos de exclusão do MEI ou crescimento do negócio.
 
 4. Vocês atendem empresas de qual porte?
 Atendemos empresas de todos os portes, nos regimes Simples Nacional, Lucro Presumido e Lucro Real, além de associações e entidades sem fins lucrativos.
@@ -40,49 +213,28 @@ Sim, a troca de contador pode ser feita a qualquer momento.
 Sim. Fazemos todo o processo: abertura, regularização e contabilidade mensal.
 
 7. Atendem todo o Brasil?
-Depende do tipo de empresa e da operação.
-Para avaliar corretamente, é necessário falar com um consultor.
+Depende do tipo de empresa e da operação. Para avaliar corretamente, é necessário falar com um consultor.
 
 8. Quais documentos preciso para começar?
-Documentos pessoais dos sócios, como CNH, e informações básicas da empresa, como atividades e local.
-Antes de qualquer avanço, realizamos a consulta de viabilidade na JUCISRS para confirmar se a empresa pode ser aberta.
-Nunca alugue imóvel ou feche endereço antes dessa consulta.
+Documentos pessoais dos sócios (CNH) e informações básicas da empresa (atividades e local).
+CRÍTICO: Antes de qualquer avanço, realizamos a consulta de viabilidade na JUCISRS para confirmar se a empresa pode ser aberta. NUNCA alugue imóvel ou feche endereço antes dessa consulta.
 
 9. Como funciona o atendimento?
-O atendimento da Roosevelt Contabilidade é um dos nossos maiores diferenciais.
-Atendemos via WhatsApp, telefone e e-mail, sempre com especialistas, não com atendimentos genéricos.
+O atendimento da Roosevelt Contabilidade é um dos nossos maiores diferenciais. Atendemos via WhatsApp, telefone e e-mail, sempre com especialistas, não com atendimentos genéricos.
 
 10. Tem fidelidade ou multa de cancelamento?
-Não trabalhamos com fidelidade.
-Solicitamos apenas aviso prévio de 30 a 60 dias, garantindo uma transição segura e tranquila para ambas as partes.
+Não trabalhamos com fidelidade. Solicitamos apenas aviso prévio de 30 a 60 dias, garantindo uma transição segura e tranquila para ambas as partes.
 
----
+❌ O QUE A ROOSEVELT NÃO FAZ
+───────────────────────────────
+• Não atendemos hospitais
+• Não fazemos manutenção e contabilidade mensal de MEI (apenas regularização ou transformação)
+• Pessoa Física para IR avulso: sujeito à disponibilidade (não é nosso foco)
 
-Serviços e Preços:
-Proposta personalizada (START, GOLD e PREMIUM) baseada no porte e complexidade da empresa.
-
----
-
-O que a Roosevelt NÃO Faz:
-- Não atendemos hospitais.
-- Não fazemos manutenção e contabilidade mensal de MEI (apenas regularização ou transformação).
-- Pessoa Física para IR avulso: sujeito à disponibilidade (não é nosso foco).
-
----
-
-Diferenciais Roosevelt:
-- Atendimento humano, rápido e com especialistas.
-- Acesso total aos documentos (Área VIP + App).
-- Atuação preventiva e monitoramento diário.
-- Especialistas que entendem do negócio.
-- Atendimento 100% digital.
-- Atendimento em todos os regimes (Simples, Presumido, Real).
-- Seguro de Responsabilidade Civil.
-- Certificado Digital próprio.
-- Recibo Vitalício automatizado.
-- Arquivo de folha direto para bancos.
-
----
+📞 CONTATOS OFICIAIS
+────────────────────
+• Formulário de proposta: https://forms.gle/3YWG1ALy9exLhRZb6
+• WhatsApp comercial: https://wa.me/555132646306
 `;
 
 // --- SYSTEM PROMPT (v4 — Anti-Spam de Links) ---
